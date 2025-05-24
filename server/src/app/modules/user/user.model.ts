@@ -1,14 +1,14 @@
 import { model, Schema } from "mongoose";
-import { IUser } from "./user.interface";
+import { IUser, IWishlist } from "./user.interface";
+import CartModel from "../cart/cart.model";
+import OrderModel from "../order/order.model";
+//const bcrypt = require('bcrypt');
 
 
-const cartSchema = new Schema({
+
+const wishlistSchema = new Schema<IWishlist>({
     productId:{
         type: String,
-        required: true
-    },
-    quantity:{
-        type: Number,
         required: true
     }
 })
@@ -45,13 +45,19 @@ const UserSchema = new Schema<IUser>({
         default: null
     },
     cart: {
-        type: [cartSchema],
+        type: [CartModel.schema],
+        ref: 'Cart',
         default: []
     },
     wishlist: {
-        type: [String],
+        type: [wishlistSchema],
         default: []
     },
+    orders: [{
+        type: [OrderModel.schema],
+        ref: 'Order',
+        default: []
+    }],
     isBlocked: {
         type: Boolean,
         default: false

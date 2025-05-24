@@ -1,7 +1,10 @@
+import { ICartItem } from "../cart/cart.interface";
+import { IOrder } from "../order/order.interface";
 
-export interface ICart{
+
+
+export interface IWishlist{
     productId: string;
-    quantity: number;
 }
 
 export interface IUser{
@@ -12,7 +15,8 @@ export interface IUser{
     address:string;
     role: "user" | "admin";
     image?: string;
-    cart?: ICart[];
-    wishlist?: string[];
+    cart?: ICartItem[];
+    wishlist?: IWishlist[];
+    orders: IOrder[];
     isBlocked?: boolean;
 }

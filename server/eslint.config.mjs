@@ -15,6 +15,7 @@ export default defineConfig([
     ignores: ["node_modules", "dist"],
     rules: {
       "no-unused-vars": "error",
+      
     },
   },
 ]);
