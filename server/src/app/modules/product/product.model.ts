@@ -5,7 +5,7 @@ import ReviewModel from '../review/review.model';
 
 
 
-const productSchema = new Schema<IProduct>({
+export const productSchema = new Schema<IProduct>({
     name: {
         type: String,
         required: true,

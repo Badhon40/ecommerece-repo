@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 import { IOrder } from "./order.interface";
 
 
-const orderSchema = new Schema<IOrder>({
+export const orderSchema = new Schema<IOrder>({
     userId: {
         type: Schema.Types.ObjectId,
         required: true,

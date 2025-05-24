@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
 import { IUser, IWishlist } from "./user.interface";
-import CartModel from "../cart/cart.model";
-import OrderModel from "../order/order.model";
+import{ cartSchema } from "../cart/cart.model";
+import { orderSchema } from "../order/order.model";
 //const bcrypt = require('bcrypt');
 
 
@@ -42,10 +42,9 @@ const UserSchema = new Schema<IUser>({
     },
     image: {
         type: String,
-        default: null
     },
     cart: {
-        type: [CartModel.schema],
+        type: [cartSchema],
         ref: 'Cart',
         default: []
     },
@@ -54,7 +53,7 @@ const UserSchema = new Schema<IUser>({
         default: []
     },
     orders: [{
-        type: [OrderModel.schema],
+        type: [orderSchema],
         ref: 'Order',
         default: []
     }],

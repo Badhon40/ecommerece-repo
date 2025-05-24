@@ -17,6 +17,6 @@ export interface IUser{
     image?: string;
     cart?: ICartItem[];
     wishlist?: IWishlist[];
-    orders: IOrder[];
+    orders?: IOrder[];
     isBlocked?: boolean;
 }
