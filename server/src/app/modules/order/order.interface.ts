@@ -7,10 +7,10 @@ export interface IOrder{
         quantity: number;
     }[];
     totalPrice: number;
-    shippingAddress: string;
-    paymentMethod: "credit_card" | "paypal" | "bank_transfer";
-    paymentStatus: "pending" | "completed" | "failed";
-    orderDate: Date;
-    status: "pending" | "shipped" | "delivered" | "cancelled";
+    shippingAddress?: string;
+    paymentMethod?: "credit_card" | "paypal" | "bank_transfer";
+    paymentStatus?: "pending" | "completed" | "failed";
+    orderDate?: Date;
+    status?: "pending" | "shipped" | "delivered" | "cancelled";
 
 }
