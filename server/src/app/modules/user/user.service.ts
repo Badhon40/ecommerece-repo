@@ -17,17 +17,6 @@ const createUserIntoDB = async( payload : IUser ) => {
     }
 }
 
-const getUsersFromDB = async( ) => {
-    try {
-        const users = await UserModel.find({});
-        if (!users) {
-            throw new Error("No users found");
-        }
-        return users;
-    } catch (error: any) {
-        throw new Error(`Error fetching users: ${error.message}`);
-    }
-}
 
 const getSingleUserFromDB = async( userId : string ) => {
     try {
@@ -41,7 +30,7 @@ const getSingleUserFromDB = async( userId : string ) => {
     }
 }
 
-const updateUserInDB = async( userId: string, payload: Partial<IUser> ) => {
+const updateUserInDB = async( userId: string, payload: IUser) => {
     try {   
         const updatedUser = await UserModel.findByIdAndUpdate(userId, payload, { new: true });
         if (!updatedUser) {
@@ -65,6 +54,18 @@ const deleteUserFromDB = async( userId: string ) => {
     }
     catch (error: any) {
         throw new Error(`Error deleting user: ${error.message}`);
+    }
+}
+
+const getUsersFromDB = async() => {
+    try {
+        const users = await UserModel.find();
+        if (!users || users.length === 0) {
+            throw new Error("No users found");
+        }
+        return users;
+    } catch (error: any) {
+        throw new Error(`Error fetching users: ${error.message}`);
     }
 }
 

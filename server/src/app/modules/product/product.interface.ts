@@ -14,6 +14,6 @@ export interface IProduct {
     brand: string;
     ratings: number;
     numReviews: number;
-    reviews: IReview[];
+    reviews?: IReview[];
 }
     
