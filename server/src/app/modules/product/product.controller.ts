@@ -1,90 +1,80 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { ProductService } from "./product.service";
+import sendResponse from "../../utils/sendResponse";
+import { StatusCodes } from 'http-status-codes';
 
 
-const createProduct = async (req: Request, res : Response) => {
+
+
+const createProduct = async (req: Request, res : Response , next: NextFunction) => {
     const product = req.body;
     try{
         const result = await ProductService.createProductIntoDB(product);
-        res.status(200).json({
-            success: true,
+        sendResponse(res, StatusCodes.CREATED, {
+            status: true,
             message: "Product created successfully",
             data: result,
         });
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: `Error creating product: ${error.message}`,
-        });
+       next(error);
     }
 }
 
-const getAllProducts = async (req: Request, res: Response) => {
+const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const products = await ProductService.getAllProductsFromDB();
-        res.status(200).json({
-            success: true,
+        sendResponse(res, StatusCodes.OK, {
+            status: true,
             message: "Products fetched successfully",
             data: products,
         });
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: `Error fetching products: ${error.message}`,
-        }); 
+        next(error);
     }
 };
 
 
-const getSingleProduct = async (req: Request, res: Response) => {
+const getSingleProduct = async (req: Request, res: Response , next: NextFunction) => {
     const productId = req.params.id;
     try {
         const product = await ProductService.getSingleProductFromDB(productId);
-        res.status(200).json({
-            success: true,
+       sendResponse(res, StatusCodes.OK, {
+            status: true,
             message: "Product fetched successfully",
             data: product,
         });
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: `Error fetching product: ${error.message}`,
-        });
+        next(error);
+           
     }
 };
 
-const updateProduct = async (req: Request, res: Response) => {
+const updateProduct = async (req: Request, res: Response , next: NextFunction) => {
     const productId = req.params.id;
     const productData = req.body;
     try {
         const updatedProduct = await ProductService.updateProductInDB(productId, productData);
-        res.status(200).json({
-            success: true,
+       sendResponse(res, StatusCodes.OK, {
+            status: true,
             message: "Product updated successfully",
             data: updatedProduct,
         });
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: `Error updating product: ${error.message}`,
-        });
+        next(error);
     }
 };
 
-const deleteProduct = async (req: Request, res: Response) => {
+const deleteProduct = async (req: Request, res: Response , next: NextFunction) => {
     const productId = req.params.id;
     try {
         const deletedProduct = await ProductService.deleteProductFromDB(productId);
-        res.status(200).json({
-            success: true,
+        sendResponse(res, StatusCodes.OK, {
+            status: true,
             message: "Product deleted successfully",
             data: deletedProduct,
         });
     } catch (error: any) {
-        res.status(500).json({
-            success: false,
-            message: `Error deleting product: ${error.message}`,
-        });
+        next(error);
     }
 };
 
